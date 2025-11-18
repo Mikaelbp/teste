@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="PT-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teste</title>
+
+    <style>
+        body{
+            background-color: rgb(29, 29, 143);
+            margin: 0;
+            padding: 0;
+        }
+
+        .painel{
+            margin: auto;
+            background-color: rgb(111, 31, 131);
+            width: 90%;
+            max-width: 500px;
+            height: 500px;
+            border-radius: 20px;
+            text-align: center;
+            padding-top: 50px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            position: relative;
+            overflow: hidden; /* impede o botão de sair da área */
+        }
+
+        #sim{
+            height: 40px;
+            width: 60px;
+            background-color: rgb(22, 9, 9);
+            border: 2px solid white;
+            border-radius: 10px;
+            color: white;
+            margin-left: -50px;
+        }
+
+        #nao{
+            position: absolute;
+            height: 40px;
+            width: 60px;
+            background-color: red;
+            border: 2px solid white;
+            border-radius: 10px;
+            color: white;
+            margin-left: 10px;
+            transition: all 0.2s ease;
+            /*bottom: 100px; /* posição inicial */
+            /*left: 250px;   /* posição inicial */
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="painel">
+        <h1> BOA NOITE LINDA </h1>
+
+        <img src="https://gifman.net/wp-content/uploads/2019/06/ursinho-fofo-apaixonado.gif" alt="">
+
+        <h2>VAMO SAIR?!</h2>
+
+        <a href="https://forms.gle/bKqxCXA5BWA4Z7zf6">
+            <button id="sim">Sim!</button>
+        </a>
+
+        <button onmouseover="fuja()" id="nao">Não!</button>
+    </div>
+
+    <script>
+        function fuja() {
+            const botaoNao = document.getElementById("nao");
+            const painel = document.querySelector(".painel");
+
+            // tamanho interno do painel
+            const larguraPainel = painel.clientWidth;
+            const alturaPainel = painel.clientHeight;
+
+            // limites do movimento
+            const maxX = larguraPainel - botaoNao.offsetWidth;
+            const maxY = alturaPainel - botaoNao.offsetHeight;
+
+            const aleatorioX = Math.random() * maxX;
+            const aleatorioY = Math.random() * maxY;
+
+            botaoNao.style.left = aleatorioX + "px";
+            botaoNao.style.top = aleatorioY + "px";
+        }
+    </script>
+
+</body>
+</html>
