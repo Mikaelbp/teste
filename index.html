@@ -7,12 +7,37 @@
     <title>teste</title>
 
     <style>
-        body{
-            background-color: rgb(29, 29, 143);
+        /* ------ FUNDO DE ESTRELAS ------ */
+        body {
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: black;
         }
 
+        .stars {
+            width: 2px;
+            height: 2px;
+            background: white;
+            position: absolute;
+            border-radius: 50%;
+            animation: moveStars 4s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes moveStars {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0.2;
+            }
+        }
+
+        /* ------ SEU PAINEL ------ */
         .painel{
             margin: auto;
             background-color: rgb(111, 31, 131);
@@ -24,7 +49,9 @@
             padding-top: 50px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             position: relative;
-            overflow: hidden; /* impede o botão de sair da área */
+            overflow: hidden;
+            z-index: 2;
+            color: white;
         }
 
         #sim{
@@ -47,13 +74,14 @@
             color: white;
             margin-left: 10px;
             transition: all 0.2s ease;
-            /*bottom: 100px; /* posição inicial */
-            /*left: 250px;   /* posição inicial */
         }
     </style>
 
 </head>
 <body>
+
+    <!-- Estrelas ficam atrás do painel -->
+    <div id="star-container"></div>
 
     <div class="painel">
         <h1> BOA NOITE LINDA </h1>
@@ -70,15 +98,31 @@
     </div>
 
     <script>
+        /* ------ GERAR ESTRELAS ------ */
+        function criarEstrela() {
+            const estrela = document.createElement("div");
+            estrela.classList.add("stars");
+
+            estrela.style.left = Math.random() * window.innerWidth + "px";
+            estrela.style.top = "-10px";
+            estrela.style.animationDuration = (3 + Math.random() * 3) + "s";
+            estrela.style.opacity = Math.random();
+
+            document.getElementById("star-container").appendChild(estrela);
+
+            setTimeout(() => estrela.remove(), 6000);
+        }
+
+        setInterval(criarEstrela, 80);
+
+        /* ------ BOTÃO FUGINDO ------ */
         function fuja() {
             const botaoNao = document.getElementById("nao");
             const painel = document.querySelector(".painel");
 
-            // tamanho interno do painel
             const larguraPainel = painel.clientWidth;
             const alturaPainel = painel.clientHeight;
 
-            // limites do movimento
             const maxX = larguraPainel - botaoNao.offsetWidth;
             const maxY = alturaPainel - botaoNao.offsetHeight;
 
